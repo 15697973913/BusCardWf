@@ -11,13 +11,10 @@ import android.os.IBinder;
 import android.util.Log;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import buscardxian.ncrf.jiege.buscardxian.MainActivity;
 import buscardxian.ncrf.jiege.buscardxian.application.MyApplication;
 import buscardxian.ncrf.jiege.buscardxian.tools.CopyFile;
-import buscardxian.ncrf.jiege.buscardxian.tools.GetFile;
 import buscardxian.ncrf.jiege.buscardxian.tools.GetLineMsg;
 
 
@@ -33,7 +30,6 @@ public class AutoStartBroadcastService extends Service {
         private final String BENDIPATH = Environment.getExternalStorageDirectory() + "/Advert";// 1A09-2B6C
         private boolean ishavasd;
         private Context context;
-        public List<String> storagelist = new ArrayList<>();
         public String sdPath;
 
         public void onReceive(Context context, Intent intent) {
@@ -63,7 +59,6 @@ public class AutoStartBroadcastService extends Service {
             public void handleMessage(android.os.Message msg) {
                 switch (msg.what) {
                     case 0x5151:
-                        storagelist = GetFile.getstoragefilelis();
                         Log.v(TAG, "sdpath:" + sdPath);
                         USBPATH = sdPath + "/BusCard";
                         File file = new File(USBPATH);

@@ -67,9 +67,9 @@ public class MyApplication extends Application {
 		qclisr();
 		helper = new MySqlHelper(this, "linemessage.db", null, 1);
 		db = helper.getWritableDatabase();
-//		if (isNeedCaughtExeption) {
-//			cauchException();
-//		}
+		if (isNeedCaughtExeption) {
+			cauchException();
+		}
 	}
 
 	public static void qclisr() {
