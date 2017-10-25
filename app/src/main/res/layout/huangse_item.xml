@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/zdbuju"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/type_img"
+            android:layout_width="@dimen/dp_13"
+            android:layout_height="@dimen/dp_13"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/hs_yuan" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_153"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <buscardxian.ncrf.jiege.buscardxian.tools.MyTextView
+                android:id="@+id/hhs_name"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_139"
+                android:layout_marginTop="@dimen/dp_14"
+                android:gravity="center_horizontal"
+                android:text="老福山"
+                android:textSize="@dimen/sp_22" />
+            <buscardxian.ncrf.jiege.buscardxian.tools.MyTextView
+                android:id="@+id/hhs_name1"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_139"
+                android:layout_marginTop="@dimen/dp_14"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                android:text="老福山"
+                android:textSize="@dimen/sp_22" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
