@@ -75,6 +75,10 @@ public class MainActivity extends Activity {
     public static String ZongFilePath = RootPath + File.separator + "Advert";
     // 配置文件路径
     public static String ConfigureFilePath = RootPath + File.separator + "Advert" + File.separator + "ConfigureFile" + File.separator;
+    /**
+     * Log文件路径
+     */
+    public static String LogFilePath = RootPath + File.separator + "Advert" + File.separator + "Log" + File.separator;
     public static File fwyyfile = new File(ConfigureFilePath + "fwyy.txt");
     public SharedPreferences sha;
     public boolean isOneStart = false;
@@ -285,6 +289,14 @@ public class MainActivity extends Activity {
                 Log.v(TAG, "文件夹已存在");
                 Log.v(TAG, "FolderPath:" + ConfigureFilePath);
             }
+            file = new File(LogFilePath);
+            if (!file.exists()) {
+                file.mkdirs();
+                Log.v(TAG, "创建Log文件夹成功");
+            } else {
+                Log.v(TAG, "文件夹已存在");
+                Log.v(TAG, "FolderPath:" + LogFilePath);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.v(TAG, "创建文件夹失败");
@@ -294,9 +306,10 @@ public class MainActivity extends Activity {
     // 初始化控件
     private void init() {
         context = MainActivity.this;
+        MyApplication.mAppManager.addActivity(this);
         mPaomadeng = findViewById(R.id.paomadeng);
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,0, MyApplication.weight);
+                LinearLayout.LayoutParams.MATCH_PARENT, 0, MyApplication.weight);
         mBlankpart.setLayoutParams(param);
         createfile();// 创建文件夹
         //如果是第一次启动就从本地获取数据
