@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.tools;
+package com.example.buscardXiAn.tools;
 
 /**
  * Created by Administrator on 2017/11/7 0007.

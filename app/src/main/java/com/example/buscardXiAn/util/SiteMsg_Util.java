@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.util;
+package com.example.buscardXiAn.util;
 
 /**
  *

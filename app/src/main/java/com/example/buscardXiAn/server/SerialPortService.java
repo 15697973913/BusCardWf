@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.server;
+package com.example.buscardXiAn.server;
 
 import android.app.Service;
 import android.content.Intent;
@@ -9,6 +9,12 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.buscardXiAn.MainActivity;
+import com.example.buscardXiAn.application.MyApplication;
+import com.example.buscardXiAn.tools.CopyFile;
+import com.example.buscardXiAn.tools.MyFunc;
+import com.example.buscardXiAn.tools.SqliteUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,11 +22,6 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 import android_serialport_api.SerialPort;
-import buscardxian.ncrf.jiege.buscardxian.MainActivity;
-import buscardxian.ncrf.jiege.buscardxian.application.MyApplication;
-import buscardxian.ncrf.jiege.buscardxian.tools.CopyFile;
-import buscardxian.ncrf.jiege.buscardxian.tools.MyFunc;
-import buscardxian.ncrf.jiege.buscardxian.tools.SqliteUtil;
 
 
 public class SerialPortService extends Service {

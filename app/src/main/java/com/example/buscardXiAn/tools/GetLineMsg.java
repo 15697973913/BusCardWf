@@ -1,7 +1,12 @@
-package buscardxian.ncrf.jiege.buscardxian.tools;
+package com.example.buscardXiAn.tools;
 
 import android.os.Environment;
 import android.util.Log;
+
+import com.example.buscardXiAn.MainActivity;
+import com.example.buscardXiAn.application.MyApplication;
+import com.example.buscardXiAn.util.LineMsg_Util;
+import com.example.buscardXiAn.util.SiteMsg_Util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -9,11 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import buscardxian.ncrf.jiege.buscardxian.MainActivity;
-import buscardxian.ncrf.jiege.buscardxian.application.MyApplication;
-import buscardxian.ncrf.jiege.buscardxian.util.LineMsg_Util;
-import buscardxian.ncrf.jiege.buscardxian.util.SiteMsg_Util;
 
 /**
  *

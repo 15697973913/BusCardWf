@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.tools;
+package com.example.buscardXiAn.tools;
 
 /*
  * ConfigurationFile.java
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import buscardxian.ncrf.jiege.buscardxian.util.SiteMsg_Util;
+import com.example.buscardXiAn.util.SiteMsg_Util;
 
 
 /**

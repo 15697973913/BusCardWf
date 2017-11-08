@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.adapter;
+package com.example.buscardXiAn.adapter;
 
 
 import android.content.Context;
@@ -13,12 +13,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.example.buscardXiAn.R;
+import com.example.buscardXiAn.tools.MyTextView;
+import com.example.buscardXiAn.util.SiteMsg_Util;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import buscardxian.ncrf.jiege.buscardxian.R;
-import buscardxian.ncrf.jiege.buscardxian.tools.MyTextView;
-import buscardxian.ncrf.jiege.buscardxian.util.SiteMsg_Util;
 
 
 

@@ -159,13 +159,13 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical" >
 
-                            <buscardxian.ncrf.jiege.buscardxian.tools.HorizontalListView
+                            <com.example.buscardXiAn.tools.HorizontalListView
                                 android:id="@+id/list1"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp_0"
                                 android:layout_marginLeft="@dimen/dp_35"
                                 android:layout_weight="1" >
-                            </buscardxian.ncrf.jiege.buscardxian.tools.HorizontalListView>
+                            </com.example.buscardXiAn.tools.HorizontalListView>
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -173,14 +173,14 @@
                                 android:layout_marginLeft="@dimen/dp_20"
                                 android:layout_marginRight="@dimen/dp_20" />
 
-                            <buscardxian.ncrf.jiege.buscardxian.tools.HorizontalListView
+                            <com.example.buscardXiAn.tools.HorizontalListView
                                 android:id="@+id/list2"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp_0"
                                 android:layout_marginLeft="@dimen/dp_35"
                                 android:layout_weight="1"
                                 android:paddingTop="-9dp" >
-                            </buscardxian.ncrf.jiege.buscardxian.tools.HorizontalListView>
+                            </com.example.buscardXiAn.tools.HorizontalListView>
                         </LinearLayout>
                     </FrameLayout>
 
@@ -194,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left|bottom"
-                            android:text="v1.5" />
+                            android:text="v1.6" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

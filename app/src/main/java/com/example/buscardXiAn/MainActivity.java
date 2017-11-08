@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian;
+package com.example.buscardXiAn;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,29 +16,30 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.buscardXiAn.adapter.MyAdapter;
+import com.example.buscardXiAn.adapter.shangMyAdapter;
+import com.example.buscardXiAn.application.MyApplication;
+import com.example.buscardXiAn.server.SerialPortService;
+import com.example.buscardXiAn.tools.CopyFile;
+import com.example.buscardXiAn.tools.GetLineMsg;
+import com.example.buscardXiAn.tools.HorizontalListView;
+import com.example.buscardXiAn.tools.SqliteUtil;
+import com.example.buscardXiAn.util.SiteMsg_Util;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import buscardxian.ncrf.jiege.buscardxian.adapter.MyAdapter;
-import buscardxian.ncrf.jiege.buscardxian.adapter.shangMyAdapter;
-import buscardxian.ncrf.jiege.buscardxian.application.MyApplication;
-import buscardxian.ncrf.jiege.buscardxian.server.SerialPortService;
-import buscardxian.ncrf.jiege.buscardxian.tools.CopyFile;
-import buscardxian.ncrf.jiege.buscardxian.tools.GetLineMsg;
-import buscardxian.ncrf.jiege.buscardxian.tools.HorizontalListView;
-import buscardxian.ncrf.jiege.buscardxian.tools.SqliteUtil;
-import buscardxian.ncrf.jiege.buscardxian.util.SiteMsg_Util;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static buscardxian.ncrf.jiege.buscardxian.R.id.LineWord;
-import static buscardxian.ncrf.jiege.buscardxian.R.id.StationDownLast;
-import static buscardxian.ncrf.jiege.buscardxian.R.id.StationUpLast;
-import static buscardxian.ncrf.jiege.buscardxian.R.id.dzts;
-import static buscardxian.ncrf.jiege.buscardxian.R.id.xllist;
-import static buscardxian.ncrf.jiege.buscardxian.R.id.zhanming;
-import static buscardxian.ncrf.jiege.buscardxian.R.id.zhuangtai;
+import static com.example.buscardXiAn.R.id.LineWord;
+import static com.example.buscardXiAn.R.id.StationDownLast;
+import static com.example.buscardXiAn.R.id.StationUpLast;
+import static com.example.buscardXiAn.R.id.dzts;
+import static com.example.buscardXiAn.R.id.xllist;
+import static com.example.buscardXiAn.R.id.zhanming;
+import static com.example.buscardXiAn.R.id.zhuangtai;
 
 
 public class MainActivity extends Activity {
@@ -56,14 +57,14 @@ public class MainActivity extends Activity {
     TextView mZhanming;
     @BindView(dzts)
     LinearLayout mDzts;
-    @BindView(R.id.list1)
+    @BindView(com.example.buscardXiAn.R.id.list1)
     HorizontalListView mList1;
-    @BindView(R.id.list2)
+    @BindView(com.example.buscardXiAn.R.id.list2)
     HorizontalListView mList2;
     @BindView(xllist)
     FrameLayout mXllist;
     private static TextView mPaomadeng;
-    @BindView(R.id.blankpart)
+    @BindView(com.example.buscardXiAn.R.id.blankpart)
     LinearLayout mBlankpart;
     private List<SiteMsg_Util> list1, list2;
     private MyAdapter adapter;
@@ -87,7 +88,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// 隐藏状态栏
-        setContentView(R.layout.activity_main);
+        setContentView(com.example.buscardXiAn.R.layout.activity_main);
         ButterKnife.bind(this);
         init();// 初始化控件
     }
@@ -307,7 +308,7 @@ public class MainActivity extends Activity {
     private void init() {
         context = MainActivity.this;
         MyApplication.mAppManager.addActivity(this);
-        mPaomadeng = findViewById(R.id.paomadeng);
+        mPaomadeng = findViewById(com.example.buscardXiAn.R.id.paomadeng);
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, MyApplication.weight);
         mBlankpart.setLayoutParams(param);

@@ -1,14 +1,14 @@
-package buscardxian.ncrf.jiege.buscardxian.tools;
+package com.example.buscardXiAn.tools;
 
 import android.content.res.AssetManager;
+
+import com.example.buscardXiAn.MainActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import buscardxian.ncrf.jiege.buscardxian.MainActivity;
 
 public class CopyFile {
 	/**

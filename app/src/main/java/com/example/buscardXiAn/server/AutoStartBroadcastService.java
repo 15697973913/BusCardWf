@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.server;
+package com.example.buscardXiAn.server;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,12 +10,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import java.io.File;
+import com.example.buscardXiAn.MainActivity;
+import com.example.buscardXiAn.application.MyApplication;
+import com.example.buscardXiAn.tools.CopyFile;
+import com.example.buscardXiAn.tools.GetLineMsg;
 
-import buscardxian.ncrf.jiege.buscardxian.MainActivity;
-import buscardxian.ncrf.jiege.buscardxian.application.MyApplication;
-import buscardxian.ncrf.jiege.buscardxian.tools.CopyFile;
-import buscardxian.ncrf.jiege.buscardxian.tools.GetLineMsg;
+import java.io.File;
 
 
 public class AutoStartBroadcastService extends Service {

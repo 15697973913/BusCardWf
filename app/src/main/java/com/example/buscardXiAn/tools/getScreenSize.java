@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.tools;
+package com.example.buscardXiAn.tools;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

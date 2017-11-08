@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.tools;
+package com.example.buscardXiAn.tools;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,10 +7,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import buscardxian.ncrf.jiege.buscardxian.util.LineMsg_Util;
-import buscardxian.ncrf.jiege.buscardxian.util.SiteMsg_Util;
+import com.example.buscardXiAn.util.LineMsg_Util;
+import com.example.buscardXiAn.util.SiteMsg_Util;
 
-import static buscardxian.ncrf.jiege.buscardxian.application.MyApplication.db;
+import static com.example.buscardXiAn.application.MyApplication.db;
 
 
 public class SqliteUtil {

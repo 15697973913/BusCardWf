@@ -1,4 +1,4 @@
-package buscardxian.ncrf.jiege.buscardxian.application;
+package com.example.buscardXiAn.application;
 
 import android.app.Activity;
 import android.app.Application;
@@ -7,6 +7,12 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.buscardXiAn.MainActivity;
+import com.example.buscardXiAn.tools.AppManager;
+import com.example.buscardXiAn.tools.MySqlHelper;
+import com.example.buscardXiAn.util.LineMsg_Util;
+import com.example.buscardXiAn.util.SiteMsg_Util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,12 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import buscardxian.ncrf.jiege.buscardxian.MainActivity;
-import buscardxian.ncrf.jiege.buscardxian.tools.AppManager;
-import buscardxian.ncrf.jiege.buscardxian.tools.MySqlHelper;
-import buscardxian.ncrf.jiege.buscardxian.util.LineMsg_Util;
-import buscardxian.ncrf.jiege.buscardxian.util.SiteMsg_Util;
 
 public class MyApplication extends Application {
 	private static final String TAG ="MyApplication" ;
