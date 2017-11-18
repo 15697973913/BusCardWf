@@ -1,6 +1,7 @@
-package com.example.buscardXiAn.adapter;
+package com.example.buscardwf.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
@@ -13,9 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.example.buscardXiAn.R;
-import com.example.buscardXiAn.tools.MyTextView;
-import com.example.buscardXiAn.util.SiteMsg_Util;
+import com.example.buscardwf.R;
+import com.example.buscardwf.tools.MyTextView;
+import com.example.buscardwf.util.SiteMsg_Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,6 @@ public class MyAdapter extends BaseAdapter {
 	private List<SiteMsg_Util> list = new ArrayList<>();
 	private LayoutInflater inflater;
 	private int index;
-	private MyTextView zdname, zdname1;
-	private ImageView img;
-	private FrameLayout layout;
 	private ImageView dqimg;
 	private  Context context;
 	private int isdz;
@@ -58,13 +56,15 @@ public class MyAdapter extends BaseAdapter {
 		return arg0;
 	}
 
+	@SuppressLint({"ViewHolder", "InflateParams"})
 	@Override
 	public View getView(int arg0, View view, ViewGroup arg2) {
 		view = inflater.inflate(R.layout.huangse_item, null);
-		zdname = view.findViewById(R.id.hhs_name);
-		zdname1 = view.findViewById(R.id.hhs_name1);
-		img = view.findViewById(R.id.type_img);
-		layout = view.findViewById(R.id.zdbuju);
+		MyTextView zdname = view.findViewById(R.id.hhs_name);
+
+		MyTextView zdname1 = view.findViewById(R.id.hhs_name1);
+		ImageView img = view.findViewById(R.id.type_img);
+		FrameLayout layout = view.findViewById(R.id.zdbuju);
 		LayoutParams lp;
 		lp = (LayoutParams) layout.getLayoutParams();
 		lp.width = context.getResources().getDimensionPixelSize(R.dimen.dp_1300) / list.size();
@@ -183,6 +183,8 @@ public class MyAdapter extends BaseAdapter {
 		return view;
 	}
 
+	@SuppressLint("HandlerLeak")
+	private
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -197,6 +199,6 @@ public class MyAdapter extends BaseAdapter {
 			default:
 				break;
 			}
-		};
+		}
 	};
 }

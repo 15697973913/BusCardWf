@@ -1,5 +1,6 @@
-package com.example.buscardXiAn.adapter;
+package com.example.buscardwf.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
@@ -12,21 +13,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.example.buscardXiAn.R;
-import com.example.buscardXiAn.tools.MyTextView;
-import com.example.buscardXiAn.util.SiteMsg_Util;
+import com.example.buscardwf.R;
+import com.example.buscardwf.tools.MyTextView;
+import com.example.buscardwf.util.SiteMsg_Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class shangMyAdapter extends BaseAdapter {
-    private List<SiteMsg_Util> list = new ArrayList<SiteMsg_Util>();
+    private List<SiteMsg_Util> list = new ArrayList<>();
     private LayoutInflater inflater;
     private int index;
-    private MyTextView zdname, zdname1;
-    private ImageView img;
-    private FrameLayout layout;
     private Context context;
     private ImageView dqimg;
     private int isdz;
@@ -56,13 +54,14 @@ public class shangMyAdapter extends BaseAdapter {
         return arg0;
     }
 
+    @SuppressLint({"ViewHolder", "InflateParams"})
     @Override
     public View getView(int arg0, View view, ViewGroup arg2) {
         view = inflater.inflate(R.layout.shanghuangse_item, null);
-        zdname = view.findViewById(R.id.shhs_name);
-        zdname1 = view.findViewById(R.id.shhs_name1);
-        img = view.findViewById(R.id.stype_img);
-        layout = view.findViewById(R.id.szdbuju);
+        MyTextView zdname = view.findViewById(R.id.shhs_name);
+        MyTextView zdname1 = view.findViewById(R.id.shhs_name1);
+        ImageView img = view.findViewById(R.id.stype_img);
+        FrameLayout layout = view.findViewById(R.id.szdbuju);
         LayoutParams lp;
         lp = (LayoutParams) layout.getLayoutParams();
         lp.width = context.getResources().getDimensionPixelSize(R.dimen.dp_1300) / list.size();
@@ -180,7 +179,8 @@ public class shangMyAdapter extends BaseAdapter {
         return view;
     }
 
-    Handler handler = new Handler() {
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0x4141:
@@ -195,7 +195,5 @@ public class shangMyAdapter extends BaseAdapter {
                     break;
             }
         }
-
-        ;
     };
 }

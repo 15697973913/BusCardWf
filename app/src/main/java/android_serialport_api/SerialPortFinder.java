@@ -28,7 +28,7 @@ import java.util.Vector;
 public class SerialPortFinder {
 
 	public class Driver {
-		public Driver(String name, String root) {
+		Driver(String name, String root) {
 			mDriverName = name;
 			mDeviceRoot = root;
 		}
@@ -37,9 +37,9 @@ public class SerialPortFinder {
 		private String mDeviceRoot;
 		Vector<File> mDevices = null;
 
-		public Vector<File> getDevices() {
+		Vector<File> getDevices() {
 			if (mDevices == null) {
-				mDevices = new Vector<File>();
+				mDevices = new Vector<>();
 				File dev = new File("/dev");
 				File[] files = dev.listFiles();
 				int i;
@@ -62,9 +62,9 @@ public class SerialPortFinder {
 
 	private Vector<Driver> mDrivers = null;
 
-	Vector<Driver> getDrivers() throws IOException {
+	private Vector<Driver> getDrivers() throws IOException {
 		if (mDrivers == null) {
-			mDrivers = new Vector<Driver>();
+			mDrivers = new Vector<>();
 			LineNumberReader r = new LineNumberReader(new FileReader(
 					"/proc/tty/drivers"));
 			String l;
@@ -86,16 +86,15 @@ public class SerialPortFinder {
 	}
 
 	public String[] getAllDevices() {
-		Vector<String> devices = new Vector<String>();
+		Vector<String> devices = new Vector<>();
 		// Parse each driver
 		Iterator<Driver> itdriv;
 		try {
 			itdriv = getDrivers().iterator();
 			while (itdriv.hasNext()) {
 				Driver driver = itdriv.next();
-				Iterator<File> itdev = driver.getDevices().iterator();
-				while (itdev.hasNext()) {
-					String device = itdev.next().getName();
+				for (File file : driver.getDevices()) {
+					String device = file.getName();
 					String value = String.format("%s (%s)", device,
 							driver.getName());
 					devices.add(value);
@@ -108,16 +107,15 @@ public class SerialPortFinder {
 	}
 
 	public String[] getAllDevicesPath() {
-		Vector<String> devices = new Vector<String>();
+		Vector<String> devices = new Vector<>();
 		// Parse each driver
 		Iterator<Driver> itdriv;
 		try {
 			itdriv = getDrivers().iterator();
 			while (itdriv.hasNext()) {
 				Driver driver = itdriv.next();
-				Iterator<File> itdev = driver.getDevices().iterator();
-				while (itdev.hasNext()) {
-					String device = itdev.next().getAbsolutePath();
+				for (File file : driver.getDevices()) {
+					String device = file.getAbsolutePath();
 					devices.add(device);
 				}
 			}

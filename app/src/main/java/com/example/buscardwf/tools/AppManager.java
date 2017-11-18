@@ -1,8 +1,4 @@
-package com.example.buscardXiAn.tools;
-
-/**
- * Created by Administrator on 2017/11/7 0007.
- */
+package com.example.buscardwf.tools;
 
 import android.app.Activity;
 
@@ -36,7 +32,7 @@ public class AppManager {
      */
     public void addActivity(Activity activity) {
         if (activityStack == null) {
-            activityStack = new Stack<Activity>();
+            activityStack = new Stack<>();
         }
         activityStack.add(activity);
     }
@@ -56,18 +52,16 @@ public class AppManager {
         Activity activity = activityStack.lastElement();
         if (activity != null) {
             activity.finish();
-            activity = null;
         }
     }
 
     /**
      * 结束指定的Activity
      */
-    public void finishActivity(Activity activity) {
+    private void finishActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
-            activity = null;
         }
     }
 

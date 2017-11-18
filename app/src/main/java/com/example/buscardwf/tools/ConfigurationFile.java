@@ -1,4 +1,4 @@
-package com.example.buscardXiAn.tools;
+package com.example.buscardwf.tools;
 
 /*
  * ConfigurationFile.java
@@ -9,7 +9,11 @@ package com.example.buscardXiAn.tools;
  * and open the template in the editor.
  */
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
+
+import com.example.buscardwf.util.SiteMsg_Util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -19,8 +23,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.example.buscardXiAn.util.SiteMsg_Util;
-
 
 /**
  * 这是个配置文档操作类，用来读取和配置ini配置文档
@@ -29,14 +31,12 @@ import com.example.buscardXiAn.util.SiteMsg_Util;
  * @version 2004-08-18
  * @修改 2008-05-22
  */
-public final class ConfigurationFile {
+final class ConfigurationFile {
 	/**
 	 * 从ini配置文档中读取变量的值
 	 *
-	 * @param file
-	 *            配置文档的路径
-	 * @param section
-	 *            要获取的变量所在段名称
+	 * @param file 配置文档的路径
+	 * @param section 要获取的变量所在段名称
 	 * @param variable
 	 *            要获取的变量名称
 	 * @param defaultValue
@@ -45,46 +45,40 @@ public final class ConfigurationFile {
 	 * @throws IOException
 	 *             抛出文档操作可能出现的io异常
 	 */
-	private static String TAG = "ConfigurationFile";
+	private static final String TAG = "ConfigurationFile";
 
-	public static String getProfileString(String file, String section,
-										  String variable, String defaultValue) throws IOException {
-		String strLine, value = "";
-		BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(file)));
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+	static String getProfileString(String file,
+								   String variable) throws IOException {
+		String strLine, value;
 		boolean isInSection = false;
-		try {
+		try (BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(file)))) {
 			while ((strLine = bufferedReader.readLine()) != null) {
 				strLine = strLine.trim();
 				Pattern p;
 				Matcher m;
-				p = Pattern.compile("\\[" + section + "\\]");
+				p = Pattern.compile("\\[" + "LINEDATA" + "]");
 				m = p.matcher((strLine));
 				if (m.matches()) {
 
-					p = Pattern.compile("\\[" + section + "\\]");
+					p = Pattern.compile("\\[" + "LINEDATA" + "]");
 					m = p.matcher(strLine);
-					if (m.matches()) {
-						isInSection = true;
-					} else {
-						isInSection = false;
-					}
+					isInSection = m.matches();
 				}
-				if (isInSection == true) {
+				if (isInSection) {
 					strLine = strLine.trim();
 					String[] strArray = strLine.split("=");
 					isInSection = true;
 					if (strArray.length == 1) {
 						value = strArray[0].trim();
 						if (value.equalsIgnoreCase(variable)) {
-							value = null;
-							return value;
+							return null;
 						}
 					} else if (strArray.length == 2) {
 						value = strArray[0].trim();
 						if (value.equalsIgnoreCase(variable)) {
-							value = strArray[1].trim();
-							return value;
+							return strArray[1].trim();
 						}
 					} else if (strArray.length > 2) {
 						value = strArray[0].trim();
@@ -96,37 +90,33 @@ public final class ConfigurationFile {
 					}
 				}
 			}
-		} finally {
-			bufferedReader.close();
 		}
-		return defaultValue;
+		return null;
 	}
 
 	/**
 	 *
-	 * @param file
-	 * @param section
-	 * @return
-	 * @throws IOException
+	 * @param file 要读取的文件
+	 * @return 站点
 	 */
-	public static ArrayList<SiteMsg_Util> getSectionAll(String file) throws IOException {
-		String strLine, value = "";
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+	static ArrayList<SiteMsg_Util> getSectionAll(String file) throws IOException {
+		String strLine, value;
 		SiteMsg_Util util = new SiteMsg_Util();
 		int i = 1;
 		String sectionname = "605" + "_" + i;
-		ArrayList<SiteMsg_Util> list = new ArrayList<SiteMsg_Util>();
-		BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(file)));
+		ArrayList<SiteMsg_Util> list = new ArrayList<>();
 		boolean isInSection = false;
-		try {
+		try (BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(file)))) {
 			while ((strLine = bufferedReader.readLine()) != null) {
 				strLine = strLine.trim();
 				Pattern p;
 				Matcher m;
-				p = Pattern.compile("\\[" + sectionname + "\\]");
+				p = Pattern.compile("\\[" + sectionname + "]");
 				m = p.matcher((strLine));
 				if (m.matches()) {
-					p = Pattern.compile("\\[" + sectionname + "\\]");
+					p = Pattern.compile("\\[" + sectionname + "]");
 					m = p.matcher(strLine);
 					if (m.matches()) {
 						isInSection = true;
@@ -134,7 +124,7 @@ public final class ConfigurationFile {
 						isInSection = false;
 					}
 				}
-				if (isInSection == true) {
+				if (isInSection) {
 					strLine = strLine.trim();
 					String[] strArray = strLine.split("=");
 					if (strArray.length == 2) {
@@ -166,8 +156,6 @@ public final class ConfigurationFile {
 			}
 		} catch (Exception e) {
 			Log.e(TAG, "有异常");
-		} finally {
-			bufferedReader.close();
 		}
 		return list;
 	}

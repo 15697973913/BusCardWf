@@ -30,11 +30,6 @@ public class SerialPort {
 
 	private static final String TAG = "SerialPort";
 
-	/*
-	 * Do not remove or rename the field mFd: it is used by native method
-	 * close();
-	 */
-	private FileDescriptor mFd;
 	private FileInputStream mFileInputStream;
 	private FileOutputStream mFileOutputStream;
 
@@ -59,13 +54,13 @@ public class SerialPort {
 			}
 		}
 
-		mFd = open(device.getAbsolutePath(), baudrate, flags);
-		if (mFd == null) {
+		FileDescriptor fd = open(device.getAbsolutePath(), baudrate, flags);
+		if (fd == null) {
 			Log.e(TAG, "native open returns null");
 			throw new IOException();
 		}
-		mFileInputStream = new FileInputStream(mFd);
-		mFileOutputStream = new FileOutputStream(mFd);
+		mFileInputStream = new FileInputStream(fd);
+		mFileOutputStream = new FileOutputStream(fd);
 	}
 
 	// Getters and setters
@@ -80,8 +75,6 @@ public class SerialPort {
 	// JNI
 	private native static FileDescriptor open(String path, int baudrate,
 			int flags);
-
-	public native void close();
 
 	static {
 		System.loadLibrary("serial_port");

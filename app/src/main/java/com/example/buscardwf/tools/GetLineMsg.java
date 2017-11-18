@@ -1,12 +1,12 @@
-package com.example.buscardXiAn.tools;
+package com.example.buscardwf.tools;
 
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.buscardXiAn.MainActivity;
-import com.example.buscardXiAn.application.MyApplication;
-import com.example.buscardXiAn.util.LineMsg_Util;
-import com.example.buscardXiAn.util.SiteMsg_Util;
+import com.example.buscardwf.MainActivity;
+import com.example.buscardwf.application.MyApplication;
+import com.example.buscardwf.util.LineMsg_Util;
+import com.example.buscardwf.util.SiteMsg_Util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -66,29 +66,29 @@ public class GetLineMsg {
 	public static void readLineMsgToSqlite(){
 		try {
 			line_util.setStationId(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA", "StationId", null));
+					.getProfileString(filepath3, "StationId"));
 			line_util.setLineWord(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA", "LineWord", null));
+					.getProfileString(filepath3, "LineWord"));
 			line_util.setStationUpLast(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA", "StationUpLast",
-							null));
+					.getProfileString(filepath3, "StationUpLast"
+					));
 			line_util.setStationDownLast(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA", "StationDownLast",
-							null));
+					.getProfileString(filepath3, "StationDownLast"
+					));
 			line_util.setStationUpStartTime(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA",
-							"StationUpStartTime", null));
+					.getProfileString(filepath3,
+                            "StationUpStartTime"));
 			line_util.setTicket(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA", "Ticket", null));
+					.getProfileString(filepath3, "Ticket"));
 			line_util.setStationUpEndTime(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA", "StationUpEndTime",
-							null));
+					.getProfileString(filepath3, "StationUpEndTime"
+					));
 			line_util.setStationDownStartTime(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA",
-							"StationDownStartTime", null));
+					.getProfileString(filepath3,
+                            "StationDownStartTime"));
 			line_util.setStationDownEndTime(ConfigurationFile
-					.getProfileString(filepath3, "LINEDATA",
-							"StationDownEndTime", null));
+					.getProfileString(filepath3,
+                            "StationDownEndTime"));
 			Log.v(TAG,"line_util:"+line_util.toString());
 			SqliteUtil.DeleteLineNum(MyApplication.db);
 			SqliteUtil.insertMsg(MyApplication.db,line_util.getLineWord(),line_util.getStationUpLast(),line_util.getStationDownLast());

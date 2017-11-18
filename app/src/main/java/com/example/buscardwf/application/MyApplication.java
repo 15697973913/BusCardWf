@@ -1,6 +1,6 @@
-package com.example.buscardXiAn.application;
+package com.example.buscardwf.application;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.buscardXiAn.MainActivity;
-import com.example.buscardXiAn.tools.AppManager;
-import com.example.buscardXiAn.tools.MySqlHelper;
-import com.example.buscardXiAn.util.LineMsg_Util;
-import com.example.buscardXiAn.util.SiteMsg_Util;
+import com.example.buscardwf.MainActivity;
+import com.example.buscardwf.tools.AppManager;
+import com.example.buscardwf.tools.MySqlHelper;
+import com.example.buscardwf.util.LineMsg_Util;
+import com.example.buscardwf.util.SiteMsg_Util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,12 +33,10 @@ public class MyApplication extends Application {
 	public static List<SiteMsg_Util> sxlist = new ArrayList<>();
 	// 下行站点list
 	public static List<SiteMsg_Util> xxlist = new ArrayList<>();
-	// activity对象列表,用于activity统一管理
-	private List<Activity> activityList;
 	// 异常捕获
 	protected boolean isNeedCaughtExeption = true;// 是否捕获未知异常
-	private MyUncaughtExceptionHandler uncaughtExceptionHandler;
 	private String packgeName;
+	@SuppressLint("StaticFieldLeak")
 	public static Context context;
 	// 服务用语的list
 	public static List<String> fwyylist;
@@ -57,7 +55,6 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mAppManager=AppManager.getAppManager();
-		activityList = new ArrayList<>();
 		packgeName = getPackageName();
 		context = this;
 		if (android.os.Build.MODEL.equals("SoftwinerEvb")){
@@ -101,7 +98,7 @@ public class MyApplication extends Application {
 		// 参数1：包名，参数2：程序入口的activity
 		intent.setClassName(packgeName, packgeName + ".LoginActivity");
 		// 程序崩溃时触发线程
-		uncaughtExceptionHandler = new MyUncaughtExceptionHandler();
+		MyUncaughtExceptionHandler uncaughtExceptionHandler = new MyUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
 	}
 
@@ -124,7 +121,7 @@ public class MyApplication extends Application {
 	 *
 	 * @return 返回文件名称
 	 */
-	private String saveCatchInfo2File(Throwable ex) {
+	private void saveCatchInfo2File(Throwable ex) {
 		Writer writer = new StringWriter();
 		PrintWriter printWriter = new PrintWriter(writer);
 		ex.printStackTrace(printWriter);
@@ -136,7 +133,7 @@ public class MyApplication extends Application {
 		printWriter.close();
 		String sb = writer.toString();
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+			@SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			String time = formatter.format(new Date());
 			String fileName = time + ".txt";
 			System.out.println("fileName:" + fileName);
@@ -147,7 +144,7 @@ public class MyApplication extends Application {
 				if (!dir.mkdirs()) {
 					Log.v(TAG,"目录创建失败:"+filePath);
 					// 创建目录失败: 一般是因为SD卡被拔出了
-					return "";
+					return;
 				}
 			}
 			System.out.println("filePath + fileName:" + filePath + fileName);
@@ -155,11 +152,9 @@ public class MyApplication extends Application {
 			fos.write(sb.getBytes());
 			fos.close();
 			// 文件保存完了之后,在应用下次启动的时候去检查错误日志,发现新的错误日志,就发送给开发者
-			return fileName;
 		} catch (Exception e) {
 			System.out.println("an error occured while writing file..." + e.getMessage());
 		}
-		return null;
 	}
 
 }

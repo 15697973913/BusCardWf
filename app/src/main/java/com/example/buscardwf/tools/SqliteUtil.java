@@ -1,4 +1,4 @@
-package com.example.buscardXiAn.tools;
+package com.example.buscardwf.tools;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,10 +7,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.buscardXiAn.util.LineMsg_Util;
-import com.example.buscardXiAn.util.SiteMsg_Util;
+import com.example.buscardwf.util.LineMsg_Util;
+import com.example.buscardwf.util.SiteMsg_Util;
 
-import static com.example.buscardXiAn.application.MyApplication.db;
+import static com.example.buscardwf.application.MyApplication.db;
 
 
 public class SqliteUtil {

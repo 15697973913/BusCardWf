@@ -1,5 +1,6 @@
-package com.example.buscardXiAn;
+package com.example.buscardwf;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +17,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.buscardXiAn.adapter.MyAdapter;
-import com.example.buscardXiAn.adapter.shangMyAdapter;
-import com.example.buscardXiAn.application.MyApplication;
-import com.example.buscardXiAn.server.SerialPortService;
-import com.example.buscardXiAn.tools.CopyFile;
-import com.example.buscardXiAn.tools.GetLineMsg;
-import com.example.buscardXiAn.tools.HorizontalListView;
-import com.example.buscardXiAn.tools.SqliteUtil;
-import com.example.buscardXiAn.util.SiteMsg_Util;
+import com.example.buscardwf.adapter.MyAdapter;
+import com.example.buscardwf.adapter.shangMyAdapter;
+import com.example.buscardwf.application.MyApplication;
+import com.example.buscardwf.server.SerialPortService;
+import com.example.buscardwf.tools.CopyFile;
+import com.example.buscardwf.tools.GetLineMsg;
+import com.example.buscardwf.tools.HorizontalListView;
+import com.example.buscardwf.tools.SqliteUtil;
+import com.example.buscardwf.util.SiteMsg_Util;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,17 +34,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.buscardXiAn.R.id.LineWord;
-import static com.example.buscardXiAn.R.id.StationDownLast;
-import static com.example.buscardXiAn.R.id.StationUpLast;
-import static com.example.buscardXiAn.R.id.dzts;
-import static com.example.buscardXiAn.R.id.xllist;
-import static com.example.buscardXiAn.R.id.zhanming;
-import static com.example.buscardXiAn.R.id.zhuangtai;
+import static com.example.buscardwf.R.id.LineWord;
+import static com.example.buscardwf.R.id.StationDownLast;
+import static com.example.buscardwf.R.id.StationUpLast;
+import static com.example.buscardwf.R.id.dzts;
+import static com.example.buscardwf.R.id.xllist;
+import static com.example.buscardwf.R.id.zhanming;
+import static com.example.buscardwf.R.id.zhuangtai;
 
 
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
+    @SuppressLint("StaticFieldLeak")
     public static Context context;
     @BindView(LineWord)
     TextView mLineWord;
@@ -57,19 +59,19 @@ public class MainActivity extends Activity {
     TextView mZhanming;
     @BindView(dzts)
     LinearLayout mDzts;
-    @BindView(com.example.buscardXiAn.R.id.list1)
+    @BindView(com.example.buscardwf.R.id.list1)
     HorizontalListView mList1;
-    @BindView(com.example.buscardXiAn.R.id.list2)
+    @BindView(com.example.buscardwf.R.id.list2)
     HorizontalListView mList2;
     @BindView(xllist)
     FrameLayout mXllist;
+    @SuppressLint("StaticFieldLeak")
     private static TextView mPaomadeng;
-    @BindView(com.example.buscardXiAn.R.id.blankpart)
+    @BindView(com.example.buscardwf.R.id.blankpart)
     LinearLayout mBlankpart;
     private List<SiteMsg_Util> list1, list2;
     private MyAdapter adapter;
     private shangMyAdapter sadapter;
-    private SiteMsg_Util util;
     // 系统根路径
     public static String RootPath = Environment.getExternalStorageDirectory().toString();
     // 总路径
@@ -88,7 +90,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// 隐藏状态栏
-        setContentView(com.example.buscardXiAn.R.layout.activity_main);
+        setContentView(com.example.buscardwf.R.layout.activity_main);
         ButterKnife.bind(this);
         init();// 初始化控件
     }
@@ -124,7 +126,6 @@ public class MainActivity extends Activity {
                 handler.sendEmptyMessage(0x2153);
             }
 
-            ;
         }.start();
     }
 
@@ -144,13 +145,14 @@ public class MainActivity extends Activity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public static void setpaomadeng() {
         MyApplication.fwyylist = new ArrayList<>();
         MyApplication.fwyylist = SqliteUtil.QueryAllServletMsg(MyApplication.db);
-        StringBuffer buffer = new StringBuffer("");
+        StringBuilder buffer = new StringBuilder("");
         for (int i = 0; i < MyApplication.fwyylist.size(); i++) {
             if (!(MyApplication.fwyylist.get(i).equals(""))) {
-                buffer.append(MyApplication.fwyylist.get(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
+                buffer.append(MyApplication.fwyylist.get(i)).append("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
             }
         }
         mPaomadeng.setText("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + buffer.toString());
@@ -182,10 +184,16 @@ public class MainActivity extends Activity {
     // 设置到站
     public void setdaozhen(int index, int dlz, List<SiteMsg_Util> list, int sxx) {
         Log.v(TAG, "Mainindex:" + index);
-        String str = "";
+        String str;
         if (sxx == 1) {
+            if(MyApplication.xxlist.size()<index){
+                return;
+            }
             str = MyApplication.xxlist.get(index - 1).getStationName();
         } else {
+            if(MyApplication.sxlist.size()<index){
+                return;
+            }
             str = MyApplication.sxlist.get(index - 1).getStationName();
         }
         if (dlz == 1) {
@@ -212,7 +220,8 @@ public class MainActivity extends Activity {
             mXllist.setVisibility(View.GONE);
             mZhuangtai.setText("下一站:");
             mZhanming.setText(str);
-            handler.sendEmptyMessageDelayed(0x8181, 15000);
+            handler.removeCallbacks(r);
+            handler.postDelayed(r, 15000);
             Log.v(TAG, "离站");
             Log.v(TAG, "list/2=" + list.size() / 2);
             if (index <= list.size() / 2) {
@@ -256,6 +265,7 @@ public class MainActivity extends Activity {
         list2 = new ArrayList<>();
         int a = list.size();
         for (int i = 0; i < list.size(); i++) {
+            SiteMsg_Util util;
             if (i < list.size() / 2) {
                 util = new SiteMsg_Util();
                 util.setStationName(list.get(i).getStationName());
@@ -275,16 +285,19 @@ public class MainActivity extends Activity {
         try {
             File file = new File(ZongFilePath);
             if (!file.exists()) {
-                file.mkdirs();
+                if (file.mkdirs()) {
+                    Log.v(TAG, "创建总文件夹失败");
+                }
                 Log.v(TAG, "创建总文件夹成功");
             } else {
                 Log.v(TAG, "文件夹已存在");
                 Log.v(TAG, "FolderPath:" + ZongFilePath);
             }
             file = new File(ConfigureFilePath);
-
             if (!file.exists()) {
-                file.mkdirs();
+                if (file.mkdirs()) {
+                    Log.v(TAG, "创建配置文件夹失败");
+                }
                 Log.v(TAG, "创建配置文件夹成功");
             } else {
                 Log.v(TAG, "文件夹已存在");
@@ -292,7 +305,9 @@ public class MainActivity extends Activity {
             }
             file = new File(LogFilePath);
             if (!file.exists()) {
-                file.mkdirs();
+                if (file.mkdirs()) {
+                    Log.v(TAG, "创建Log文件夹失败");
+                }
                 Log.v(TAG, "创建Log文件夹成功");
             } else {
                 Log.v(TAG, "文件夹已存在");
@@ -308,7 +323,7 @@ public class MainActivity extends Activity {
     private void init() {
         context = MainActivity.this;
         MyApplication.mAppManager.addActivity(this);
-        mPaomadeng = findViewById(com.example.buscardXiAn.R.id.paomadeng);
+        mPaomadeng = findViewById(com.example.buscardwf.R.id.paomadeng);
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, MyApplication.weight);
         mBlankpart.setLayoutParams(param);
@@ -320,7 +335,7 @@ public class MainActivity extends Activity {
             copyfile();
             SharedPreferences.Editor editor = sha.edit();
             editor.putBoolean("isonestart", false);
-            editor.commit();
+            editor.apply();
         }
         getLineMsg(4);// 设置站点信息
         // 接收串口数据服务
@@ -329,6 +344,7 @@ public class MainActivity extends Activity {
         setpaomadeng();// 设置跑马灯
     }
 
+    @SuppressLint("HandlerLeak")
     public Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -341,19 +357,17 @@ public class MainActivity extends Activity {
                     break;
             }
         }
-
-        // 设置线路信息
-        private void setxlmsg() {
-            mLineWord.setText(MyApplication.line_util.getLineWord());
-            mStationUpLast.setText(MyApplication.line_util.getStationUpLast());
-            mStationDownLast.setText(MyApplication.line_util.getStationDownLast());
-        }
-
-        ;
     };
 
-    /**
-     * 获取和保存当前屏幕的截图
+    // 设置线路信息
+    private void setxlmsg() {
+        mLineWord.setText(MyApplication.line_util.getLineWord());
+        mStationUpLast.setText(MyApplication.line_util.getStationUpLast());
+        mStationDownLast.setText(MyApplication.line_util.getStationDownLast());
+    }
+
+    /*
+      获取和保存当前屏幕的截图
      */
 //    private void GetandSaveCurrentImage() {
 //        // 1.构建Bitmap

@@ -1,4 +1,4 @@
-package com.example.buscardXiAn.util;
+package com.example.buscardwf.util;
 
 /**
  *

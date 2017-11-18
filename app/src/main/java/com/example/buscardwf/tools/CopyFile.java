@@ -1,8 +1,8 @@
-package com.example.buscardXiAn.tools;
+package com.example.buscardwf.tools;
 
 import android.content.res.AssetManager;
 
-import com.example.buscardXiAn.MainActivity;
+import com.example.buscardwf.MainActivity;
 
 import java.io.File;
 import java.io.FileInputStream;

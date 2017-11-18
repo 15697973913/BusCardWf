@@ -1,4 +1,4 @@
-package com.example.buscardXiAn.tools;
+package com.example.buscardwf.tools;
 
 import android.content.Context;
 import android.database.DataSetObserver;

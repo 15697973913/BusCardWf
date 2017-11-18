@@ -1,21 +1,25 @@
-package com.example.buscardXiAn.server;
+package com.example.buscardwf.server;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
-import com.example.buscardXiAn.MainActivity;
-import com.example.buscardXiAn.application.MyApplication;
-import com.example.buscardXiAn.tools.CopyFile;
-import com.example.buscardXiAn.tools.GetLineMsg;
+import com.example.buscardwf.MainActivity;
+import com.example.buscardwf.application.MyApplication;
+import com.example.buscardwf.tools.CopyFile;
+import com.example.buscardwf.tools.GetLineMsg;
 
 import java.io.File;
+import java.util.Objects;
 
 
 public class AutoStartBroadcastService extends Service {
@@ -32,16 +36,20 @@ public class AutoStartBroadcastService extends Service {
         private Context context;
         public String sdPath;
 
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onReceive(Context context, Intent intent) {
             Log.v(TAG, "ACTION:" + ACTION);
-            if (intent.getAction().equals(ACTION) || intent.getAction().equals(MOUNTED) || intent.getAction().equals(UNMOUNTED)) {
+            if (Objects.equals(intent.getAction(), ACTION) || Objects.equals(intent.getAction(), MOUNTED) || Objects.equals(intent.getAction(), UNMOUNTED)) {
                 if (MainActivity.context == null) {
                     Intent newIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
                     context.startActivity(newIntent);
                     ((MyApplication) MyApplication.context).chongqi();
                 }
             }
-            if (intent.getAction().equals(MOUNTED)) {
+            if (Objects.equals(intent.getAction(), MOUNTED)) {
+                if (intent.getData()==null){
+                    return;
+                }
                 sdPath = intent.getData().getPath();
                 Log.v(TAG, "U盘路径为：" + sdPath);
 
@@ -55,6 +63,7 @@ public class AutoStartBroadcastService extends Service {
             }
         }
 
+        @SuppressLint("HandlerLeak")
         Handler handler = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 switch (msg.what) {
@@ -63,17 +72,15 @@ public class AutoStartBroadcastService extends Service {
                         USBPATH = sdPath + "/BusCard";
                         File file = new File(USBPATH);
                         Log.v(TAG, "file:" + USBPATH);
-                        if (file == null) {
-                            handler.sendEmptyMessageDelayed(0x6151, 5000);
-                            return;
-                        }
                         ishavasd = file.exists();
                         Log.v(TAG, "ishavasd:" + ishavasd);
-                        String sdapkpath = USBPATH + "/Apk/BusCardXiAn.apk";
-                        String bdapkpath = BENDIPATH + "/Apk/BusCardXiAn.apk";
+                        String sdapkpath = USBPATH + "/Apk/BusCardWf.apk";
+                        String bdapkpath = BENDIPATH + "/Apk/BusCardWf.apk";
                         File filejia = new File(BENDIPATH + "/Apk");
                         if (!filejia.exists()) {
-                            filejia.mkdirs();
+                            if (!filejia.mkdirs()){
+                                Log.v(TAG, "创建Apk文件夹失败");
+                            }
                         }
                         File bdapk = new File(bdapkpath);
                         // 复制安装包
@@ -97,7 +104,9 @@ public class AutoStartBroadcastService extends Service {
                         if (new File(sdapkpath).exists()) {
                             Log.v(TAG, "有安装包");
                             if (bdapk.exists()) {
-                                bdapk.delete();
+                                if (bdapk.delete()){
+                                    Log.v(TAG, "删除apk失败");
+                                }
                             }
                             CopyFile.copyFile(sdapkpath, bdapkpath);
                             Intent intent = new Intent("android.intent.action.SILENT_INSTALL_PACKAGE");
@@ -112,17 +121,15 @@ public class AutoStartBroadcastService extends Service {
                         USBPATH = sdPath + "/BusCard";
                         File file1 = new File(USBPATH);
                         Log.v(TAG, "file:" + USBPATH);
-                        if (file1 == null) {
-                            handler.sendEmptyMessageDelayed(0x6151, 5000);
-                            return;
-                        }
                         ishavasd = file1.exists();
                         Log.v(TAG, "ishavasd:" + ishavasd);
-                        String sdapkpath1 = USBPATH + "/Apk/BusCardXiAn.apk";
-                        String bdapkpath1 = BENDIPATH + "/Apk/BusCardXiAn.apk";
+                        String sdapkpath1 = USBPATH + "/Apk/BusCardWf.apk";
+                        String bdapkpath1 = BENDIPATH + "/Apk/BusCardWf.apk";
                         File filejia1 = new File(BENDIPATH + "/Apk");
                         if (!filejia1.exists()) {
-                            filejia1.mkdirs();
+                            if (!filejia1.mkdirs()){
+                                Log.v(TAG, "创建Apk文件夹失败");
+                            }
                         }
                         File bdapk1 = new File(bdapkpath1);
                         // 复制安装包
@@ -146,7 +153,9 @@ public class AutoStartBroadcastService extends Service {
                         if (new File(sdapkpath1).exists()) {
                             Log.v(TAG, "有安装包");
                             if (bdapk1.exists()) {
-                                bdapk1.delete();
+                                if (bdapk1.delete()){
+                                    Log.v(TAG, "删除apk失败");
+                                }
                             }
                             CopyFile.copyFile(sdapkpath1, bdapkpath1);
                             installNewApp(bdapkpath1, context);
@@ -158,8 +167,6 @@ public class AutoStartBroadcastService extends Service {
                         break;
                 }
             }
-
-            ;
         };
     }
 
